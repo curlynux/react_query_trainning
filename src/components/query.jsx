@@ -26,10 +26,7 @@ function Base() {
 		}
 	);
 	useEffect(() => {
-		setName([
-			{ id: 1, text: "curlynux" },
-			{ id: 2, text: "test" },
-		]);
+		setName([{ id: 1, text: "curlynux" }]);
 		setEditMode(false);
 		console.log(editMode);
 	}, []);
@@ -38,21 +35,17 @@ function Base() {
 		console.log("id", parseInt(Event.target.parentNode.id));
 		name.map((data) => {
 			if (parseInt(Event.target.parentNode.id) === data.id) {
-				mutation.mutate([{ text: input }]);
+				mutation.mutate([{ id: 1, text: input }]);
 			}
 
 			console.log(data);
 		});
+		setInput("");
 	}
 
 	function editText(Event) {
-		name.map((data) => {
-			parseInt(Event.target.parentNode.id);
-		});
 		if (editMode === false) {
 			setEditMode(true);
-			console.log(typeof editMode);
-			console.log(editMode);
 		} else {
 			setEditMode(false);
 			console.log(editMode);
@@ -62,11 +55,14 @@ function Base() {
 		<div className="container">
 			{query.data?.map((data) => {
 				return (
-					<div key={data.id} id={data.id} className="data">
+					<div
+						key={data.id}
+						id={data.id}
+						className="data"
+						editprop={editMode.toString()}
+					>
 						<span>edit mode: {editMode.toString()}</span>
-						<button onClick={editText} editprop={editMode.toString()}>
-							edit
-						</button>
+						<button onClick={editText}>edit</button>
 						{editMode ? (
 							<div key={data.id} id={data.id}>
 								<input
